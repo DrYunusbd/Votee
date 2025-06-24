@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সমর্থন চ্যালেঞ্জ</title>
-    <!-- Tailwind CSS CDN -->
+    <title>সমর্থন কাউন্টার</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts: Inter & Hind Siliguri -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -20,8 +18,8 @@
             transition: all 0.3s ease-in-out;
         }
 
-        /* --- Falling Golden Coins Animation --- */
-        #falling-coins-container {
+        /* --- UPDATED: Falling Money Notes Animation --- */
+        #falling-items-container {
             position: fixed;
             top: 0;
             left: 0;
@@ -31,40 +29,37 @@
             z-index: 0;
         }
 
-        .coin {
+        .falling-item {
             position: absolute;
-            top: -10%;
-            background: radial-gradient(circle, #ffd700, #f0c000, #e0b000);
-            border: 2px solid #c09000;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 10px;
-            font-weight: bold;
-            color: #805000;
-            text-shadow: 1px 1px 0px #fff5;
-            box-shadow: 0 0 10px #ffd700;
+            top: -15%;
+            /* UPDATED: Larger size for clarity */
+            width: 120px;
+            height: 60px; 
             animation: fall linear infinite;
+        }
+        
+        .falling-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
         }
 
         @keyframes fall {
             to {
-                transform: translateY(110vh) rotate(720deg);
+                /* UPDATED: Slower and smoother rotation */
+                transform: translateY(110vh) rotateX(270deg) rotateY(180deg);
             }
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
 
-    <!-- Container for the falling coins animation -->
-    <div id="falling-coins-container"></div>
+    <div id="falling-items-container"></div>
 
     <div class="relative w-full max-w-md mx-auto pt-20 p-6 md:p-8 bg-gray-800 rounded-2xl shadow-2xl z-10">
         
-        <!-- Dr. Yunus Photo -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <img 
                 class="w-28 h-28 rounded-full border-4 border-cyan-500 shadow-lg bg-gray-300 object-cover" 
@@ -74,50 +69,49 @@
             >
         </div>
         
-        <!-- Referrer Message Area -->
         <div id="referrerMessage" class="hidden text-center bg-teal-900/50 p-3 rounded-lg mb-4">
-            <p id="referrerText" class.bind="text-teal-200 font-medium"></p>
+            <p id="referrerText" class="text-teal-200 font-medium"></p>
         </div>
 
-        <!-- Header Section -->
         <div class="text-center mb-4">
-            <h1 class="text-2xl font-bold text-yellow-400">৫০০ টাকা জিতুন!</h1> <!-- Changed from ৫০০ পয়েন্ট -->
+            <h1 class="text-2xl font-bold text-cyan-400">মোট সমর্থন</h1>
         </div>
 
-        <!-- Main Action Section -->
-        <div class="text-center">
-            <h2 class="text-xl font-semibold mb-2">আপনি যদি ইউনুস সরকারকে ৫ বছর ক্ষমতায় দেখতে চান, তাহলে এখনি আপনার নাম লিখে সমর্থন করুন এবং ৫০০ টাকা জিতে নিন!</h2> <!-- Changed from ৫০০ পয়েন্ট -->
-            <p class="text-gray-400 mb-6">আপনার সমর্থন দিয়ে লিডারবোর্ডে এগিয়ে যান।</p>
-            
-            <div class="mb-4">
-                <input type="text" id="nameInput" placeholder="এখানে আপনার নাম লিখুন" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all">
-            </div>
-            
-            <button id="shareButton" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 transition-all shadow-lg hover:shadow-yellow-500/50">
-                <span>সমর্থন করে ৫০০ টাকা নিন</span> <!-- Changed from ৫০০ পয়েন্ট -->
-            </button>
-        </div>
-        
-        <!-- Counter Display Section -->
-        <div class="flex items-center justify-center space-x-3 mt-8 bg-gray-900/50 p-4 rounded-xl">
+        <div class="flex items-center justify-center space-x-3 mb-6 bg-gray-900/50 p-4 rounded-xl">
             <img 
                 src="https://t3.ftcdn.net/jpg/03/03/58/36/360_F_303583666_VgaKqVxRNkjYhdqtR4VXSKlFtAfG31nP.jpg" 
                 alt="Ballot Box Icon" 
                 class="w-9 h-9 object-cover rounded"
             >
             <div>
-                <p class="text-md text-gray-300">মোট সমর্থন পয়েন্ট</p>
-                <p class="text-3xl font-bold tracking-tight"><span id="counter">0</span></p>
+                <p class="text-md text-gray-300">মোট সমর্থন সংখ্যা</p>
+                <p class="text-3xl font-bold tracking-tight"><span id="counter">0</span> জন</p>
             </div>
         </div>
 
-        <!-- Footer -->
+        <div class="text-center">
+            <h2 class="text-xl font-semibold mb-2">আপনি যদি ইউনুস সরকারকে ৫ বছর ক্ষমতায় দেখতে চান, তাহলে এখনি আপনার নাম লিখে সমর্থন করুন।</h2>
+            <p class="text-gray-400 mb-6">আপনার সমর্থন দিয়ে অন্যদের উৎসাহিত করুন।</p>
+            
+            <div class="mb-4">
+                <input type="text" id="nameInput" placeholder="এখানে আপনার নাম লিখুন" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all">
+            </div>
+            
+            <button id="shareButton" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 transition-all shadow-lg hover:shadow-cyan-500/50">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-white">
+                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
+                    <polyline points="16 6 12 2 8 6"></polyline>
+                    <line x1="12" y1="2" x2="12" y2="15"></line>
+                </svg>
+                <span>শেয়ার করে সমর্থন জানান</span>
+            </button>
+        </div>
+
         <div class="text-center mt-8">
             <p class="text-sm text-gray-500">© 2024 ইউনুস সরকার সমর্থন গোষ্ঠী</p>
         </div>
     </div>
 
-    <!-- Custom Modal for Messages -->
     <div id="messageModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
         <div class="bg-gray-800 rounded-lg p-6 w-11/12 max-w-sm text-center shadow-xl">
             <p id="modalMessage" class="mb-4"></p>
@@ -126,6 +120,7 @@
     </div>
 
     <script>
+        // DOM element references
         const counterElement = document.getElementById('counter');
         const shareButton = document.getElementById('shareButton');
         const nameInput = document.getElementById('nameInput');
@@ -134,7 +129,7 @@
         const closeModalButton = document.getElementById('closeModal');
         const referrerMessageDiv = document.getElementById('referrerMessage');
         const referrerTextP = document.getElementById('referrerText');
-        const coinsContainer = document.getElementById('falling-coins-container');
+        const itemsContainer = document.getElementById('falling-items-container');
 
         let supporterCount = 0;
 
@@ -181,43 +176,54 @@
             const urlParams = new URLSearchParams(window.location.search);
             const supporterName = urlParams.get('supporter');
             if (supporterName) {
-                const decodedName = decodeURIComponent supperName);
-                referrerTextP.innerHTML = `আপনার বন্ধু <strong class="text-white">${decodedName}</strong> আপনাকে ৫০০ টাকা জেতার চ্যালেঞ্জ দিয়েছেন! আপনিও চ্যালেঞ্জ নিন।`; // Changed from ৫০০ পয়েন্ট
+                const decodedName = decodeURIComponent(supporterName);
+                referrerTextP.innerHTML = `আপনার বন্ধু <strong class="text-white">${decodedName}</strong> আপনাকে সমর্থন করার জন্য আমন্ত্রণ জানিয়েছেন।`;
                 referrerMessageDiv.classList.remove('hidden');
             }
         }
 
-        function createFallingCoins() {
-            const coinsCount = 25;
-            for (let i = 0; i < coinsCount; i++) {
-                const coin = document.createElement('div');
-                coin.classList.add('coin');
-                coin.style.left = Math.random() * 100 + 'vw';
-                coin.style.animationDuration = (Math.random() * 6 + 6) + 's';
-                coin.style.animationDelay = Math.random() * 6 + 's';
-                coin.innerHTML = '৫০০'; // Kept as ৫০০ since it represents the visual coin value
-                coinsContainer.appendChild(coin);
+        // --- UPDATED: Function to create clearer falling money notes ---
+        function createFallingItems() {
+            // UPDATED: Reduced number of notes
+            const itemsCount = 15; 
+            const imageUrl = 'https://upload.wikimedia.org/wikipedia/bn/f/f7/%E0%A6%AC%E0%A6%BE%E0%A6%82%E0%A6%B2%E0%A6%BE%E0%A6%A6%E0%A7%87%E0%A6%B6%E0%A7%80_%E0%A7%AB%E0%A7%A6%E0%A7%A6_%E0%A6%9F%E0%A6%BE%E0%A6%95%E0%A6%BE_%28%E0%A7%A8%E0%A7%A6%E0%A7%A7%E0%A7%A7%29-%E0%A6%B8%E0%A6%AE%E0%A7%8D%E0%A6%AE%E0%A7%81%E0%A6%96%E0%A6%A6%E0%A6%BF%E0%A6%95.jpg';
+
+            for (let i = 0; i < itemsCount; i++) {
+                const item = document.createElement('div');
+                item.classList.add('falling-item');
+                
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                
+                item.appendChild(img);
+
+                item.style.left = Math.random() * 100 + 'vw';
+                // UPDATED: Slower animation duration
+                item.style.animationDuration = (Math.random() * 5 + 8) + 's'; // 8 to 13 seconds
+                item.style.animationDelay = Math.random() * 8 + 's';
+                
+                itemsContainer.appendChild(item);
             }
         }
 
         shareButton.addEventListener('click', async () => {
             const name = nameInput.value.trim();
             if (name === '') {
-                showMessage('টাকা জিততে অনুগ্রহ করে আপনার নাম লিখুন।'); // Changed from পয়েন্ট
+                showMessage('অনুগ্রহ করে আপনার নাম লিখুন।');
                 return;
             }
             
-            supporterCount += 500; // Add 500 bonus (logic unchanged, assuming it represents "৫০০ টাকা")
+            supporterCount++;
             counterElement.textContent = supporterCount.toLocaleString('bn-BD');
             
             const baseUrl = window.location.origin + window.location.pathname;
             const encodedName = encodeURIComponent(name);
             const shareUrl = `${baseUrl}?supporter=${encodedName}`;
 
-            const shareText = `আমি ${name}, ইউনুস সরকারকে সমর্থন করে ৫০০ টাকা জিতেছি! আপনিও নিচের লিঙ্কে ক্লিক করে চ্যালেঞ্জ নিন এবং ৫০০ টাকা জিতুন!`; // Changed from ৫০০ পয়েন্ট
+            const shareText = `আমি ${name}, ইউনুস সরকারকে সমর্থন করেছি। ইউনুস সরকার কে সমর্থন করে জিতে নিন ৫০০ টাকা,  আপনি যদি ৫ বছর ইউনুস সরকারকে দেখতে চান, তাহলে নিচের লিঙ্কে প্রবেশ করে এখনই সমর্থন করুন এবং ৫০০ টাকা জিতে নিন ।`;
 
             const shareData = {
-                title: 'ইউনুস সরকারকে সমর্থন করে ৫০০ টাকা জিতুন!', // Changed from ৫০০ পয়েন্ট
+                title: 'ইউনুস সরকারকে সমর্থন করুন',
                 text: shareText,
                 url: shareUrl,
             };
@@ -235,7 +241,7 @@
                 showMessage('আপনার ব্রাউজার সরাসরি শেয়ার সমর্থন করে না। মেসেজটি আপনার ক্লিপবোর্ডে কপি করা হয়েছে।');
             }
             nameInput.value = '';
-            showMessage('অভিনন্দন! আপনি ৫০০ টাকা জিতেছেন!'); // Changed from ৫০০ পয়েন্ট
+            showMessage('ধন্যবাদ! আপনার সমর্থন গ্রহণ করা হয়েছে।');
         });
 
         closeModalButton.addEventListener('click', () => {
@@ -252,8 +258,9 @@
             setInitialCounter();
             startLiveCounter();
             checkReferrer(); 
-            createFallingCoins();
+            createFallingItems();
         });
+
     </script>
 </body>
 </html>
