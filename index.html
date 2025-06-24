@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>সমর্থন কাউন্টার</title>
+    <title>সমর্থন চ্যালেঞ্জ</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts: Inter & Hind Siliguri -->
@@ -14,67 +14,101 @@
         /* Custom font for Bengali text */
         body {
             font-family: 'Hind Siliguri', 'Inter', sans-serif;
+            overflow: hidden; /* Hide scrollbars caused by animation */
         }
         .transition-all {
             transition: all 0.3s ease-in-out;
+        }
+
+        /* --- Falling Golden Coins Animation --- */
+        #falling-coins-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .coin {
+            position: absolute;
+            top: -10%;
+            background: radial-gradient(circle, #ffd700, #f0c000, #e0b000);
+            border: 2px solid #c09000;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            font-weight: bold;
+            color: #805000;
+            text-shadow: 1px 1px 0px #fff5;
+            box-shadow: 0 0 10px #ffd700;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(110vh) rotate(720deg);
+            }
         }
     </style>
 </head>
 <body class="bg-gray-900 text-white flex items-center justify-center min-h-screen p-4">
 
-    <div class="relative w-full max-w-md mx-auto pt-20 p-6 md:p-8 bg-gray-800 rounded-2xl shadow-2xl">
+    <!-- Container for the falling coins animation -->
+    <div id="falling-coins-container"></div>
+
+    <div class="relative w-full max-w-md mx-auto pt-20 p-6 md:p-8 bg-gray-800 rounded-2xl shadow-2xl z-10">
         
         <!-- Dr. Yunus Photo -->
         <div class="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2">
             <img 
-                id="yunusPhoto"
-                class="w-28 h-28 rounded-full border-4 border-gray-700 shadow-lg bg-gray-300 object-cover" 
+                class="w-28 h-28 rounded-full border-4 border-cyan-500 shadow-lg bg-gray-300 object-cover" 
                 src="https://allbanglanewspaper.net/upload/2024/08/04578e374db7c288-dr-muhammad-yunus.jpg" 
                 alt="ড. মুহাম্মদ ইউনুস এর ছবি"
                 onerror="this.onerror=null; this.src='https://placehold.co/128x128/E2E8F0/334155?text=ছবি+লোড+হয়নি';"
             >
         </div>
         
-        <!-- NEW: Referrer Message Area (hidden by default) -->
+        <!-- Referrer Message Area -->
         <div id="referrerMessage" class="hidden text-center bg-teal-900/50 p-3 rounded-lg mb-4">
-            <p id="referrerText" class="text-teal-200 font-medium"></p>
+            <p id="referrerText" class.bind="text-teal-200 font-medium"></p>
         </div>
 
         <!-- Header Section -->
         <div class="text-center mb-4">
-            <h1 class="text-2xl font-bold text-cyan-400">মোট সমর্থন</h1>
+            <h1 class="text-2xl font-bold text-yellow-400">৫০০ টাকা জিতুন!</h1> <!-- Changed from ৫০০ পয়েন্ট -->
         </div>
 
+        <!-- Main Action Section -->
+        <div class="text-center">
+            <h2 class="text-xl font-semibold mb-2">আপনি যদি ইউনুস সরকারকে ৫ বছর ক্ষমতায় দেখতে চান, তাহলে এখনি আপনার নাম লিখে সমর্থন করুন এবং ৫০০ টাকা জিতে নিন!</h2> <!-- Changed from ৫০০ পয়েন্ট -->
+            <p class="text-gray-400 mb-6">আপনার সমর্থন দিয়ে লিডারবোর্ডে এগিয়ে যান।</p>
+            
+            <div class="mb-4">
+                <input type="text" id="nameInput" placeholder="এখানে আপনার নাম লিখুন" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all">
+            </div>
+            
+            <button id="shareButton" class="w-full bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 transition-all shadow-lg hover:shadow-yellow-500/50">
+                <span>সমর্থন করে ৫০০ টাকা নিন</span> <!-- Changed from ৫০০ পয়েন্ট -->
+            </button>
+        </div>
+        
         <!-- Counter Display Section -->
-        <div class="flex items-center justify-center space-x-3 mb-6 bg-gray-900/50 p-4 rounded-xl">
+        <div class="flex items-center justify-center space-x-3 mt-8 bg-gray-900/50 p-4 rounded-xl">
             <img 
                 src="https://t3.ftcdn.net/jpg/03/03/58/36/360_F_303583666_VgaKqVxRNkjYhdqtR4VXSKlFtAfG31nP.jpg" 
                 alt="Ballot Box Icon" 
                 class="w-9 h-9 object-cover rounded"
             >
             <div>
-                <p class="text-md text-gray-300">Supporter Counter</p>
-                <p class="text-3xl font-bold tracking-tight"><span id="counter">0</span> জন</p>
+                <p class="text-md text-gray-300">মোট সমর্থন পয়েন্ট</p>
+                <p class="text-3xl font-bold tracking-tight"><span id="counter">0</span></p>
             </div>
-        </div>
-
-        <!-- Main Action Section -->
-        <div class="text-center">
-            <h2 class="text-xl font-semibold mb-2">ইউনুস সরকারকে সমর্থন করুন</h2>
-            <p class="text-gray-400 mb-6">আপনার নাম লিখে অন্যদের সাথে শেয়ার করুন।</p>
-            
-            <div class="mb-4">
-                <input type="text" id="nameInput" placeholder="এখানে আপনার নাম লিখুন" class="w-full px-4 py-3 bg-gray-700 border border-gray-600 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-cyan-500 transition-all">
-            </div>
-            
-            <button id="shareButton" class="w-full bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-3 px-4 rounded-lg flex items-center justify-center space-x-2 transition-all shadow-lg hover:shadow-cyan-500/50">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                    <polyline points="16 6 12 2 8 6"></polyline>
-                    <line x1="12" y1="2" x2="12" y2="15"></line>
-                </svg>
-                <span>শেয়ার করে সমর্থন জানান</span>
-            </button>
         </div>
 
         <!-- Footer -->
@@ -92,7 +126,6 @@
     </div>
 
     <script>
-        // DOM element references
         const counterElement = document.getElementById('counter');
         const shareButton = document.getElementById('shareButton');
         const nameInput = document.getElementById('nameInput');
@@ -101,6 +134,7 @@
         const closeModalButton = document.getElementById('closeModal');
         const referrerMessageDiv = document.getElementById('referrerMessage');
         const referrerTextP = document.getElementById('referrerText');
+        const coinsContainer = document.getElementById('falling-coins-container');
 
         let supporterCount = 0;
 
@@ -143,74 +177,83 @@
             setTimeout(increaseCount, Math.random() * 2000 + 1000);
         }
 
-        // --- NEW: Function to check for and display referrer message ---
         function checkReferrer() {
             const urlParams = new URLSearchParams(window.location.search);
             const supporterName = urlParams.get('supporter');
             if (supporterName) {
-                const decodedName = decodeURIComponent(supporterName);
-                referrerTextP.textContent = `আপনার বন্ধু ${decodedName} ইউনুস সরকারকে সমর্থন করেছেন!`;
+                const decodedName = decodeURIComponent supperName);
+                referrerTextP.innerHTML = `আপনার বন্ধু <strong class="text-white">${decodedName}</strong> আপনাকে ৫০০ টাকা জেতার চ্যালেঞ্জ দিয়েছেন! আপনিও চ্যালেঞ্জ নিন।`; // Changed from ৫০০ পয়েন্ট
                 referrerMessageDiv.classList.remove('hidden');
             }
         }
 
-        // Share button event listener
+        function createFallingCoins() {
+            const coinsCount = 25;
+            for (let i = 0; i < coinsCount; i++) {
+                const coin = document.createElement('div');
+                coin.classList.add('coin');
+                coin.style.left = Math.random() * 100 + 'vw';
+                coin.style.animationDuration = (Math.random() * 6 + 6) + 's';
+                coin.style.animationDelay = Math.random() * 6 + 's';
+                coin.innerHTML = '৫০০'; // Kept as ৫০০ since it represents the visual coin value
+                coinsContainer.appendChild(coin);
+            }
+        }
+
         shareButton.addEventListener('click', async () => {
             const name = nameInput.value.trim();
             if (name === '') {
-                showMessage('অনুগ্রহ করে প্রথমে আপনার নাম লিখুন।');
+                showMessage('টাকা জিততে অনুগ্রহ করে আপনার নাম লিখুন।'); // Changed from পয়েন্ট
                 return;
             }
             
-            supporterCount++;
+            supporterCount += 500; // Add 500 bonus (logic unchanged, assuming it represents "৫০০ টাকা")
             counterElement.textContent = supporterCount.toLocaleString('bn-BD');
             
-            // --- NEW: Create a personalized URL for sharing ---
             const baseUrl = window.location.origin + window.location.pathname;
             const encodedName = encodeURIComponent(name);
             const shareUrl = `${baseUrl}?supporter=${encodedName}`;
 
+            const shareText = `আমি ${name}, ইউনুস সরকারকে সমর্থন করে ৫০০ টাকা জিতেছি! আপনিও নিচের লিঙ্কে ক্লিক করে চ্যালেঞ্জ নিন এবং ৫০০ টাকা জিতুন!`; // Changed from ৫০০ পয়েন্ট
+
             const shareData = {
-                title: 'ইউনুস সরকারকে সমর্থন',
-                text: `আমি ${name}, ইউনুস সরকারকে সমর্থন করছি। আপনিও সমর্থন করুন।`,
-                url: shareUrl, // Use the new personalized URL
+                title: 'ইউনুস সরকারকে সমর্থন করে ৫০০ টাকা জিতুন!', // Changed from ৫০০ পয়েন্ট
+                text: shareText,
+                url: shareUrl,
             };
             
             if (navigator.share) {
                 try { await navigator.share(shareData); } 
                 catch (error) {
                     if (error.name !== 'AbortError') {
-                        copyToClipboard(shareData.text);
+                        copyToClipboard(shareData.text + "\n" + shareUrl);
                         showMessage('সরাসরি শেয়ার করা সম্ভব হচ্ছে না। মেসেজটি আপনার ক্লিপবোর্ডে কপি করা হয়েছে।');
                     }
                 }
             } else {
-                copyToClipboard(shareData.text);
+                copyToClipboard(shareData.text + "\n" + shareUrl);
                 showMessage('আপনার ব্রাউজার সরাসরি শেয়ার সমর্থন করে না। মেসেজটি আপনার ক্লিপবোর্ডে কপি করা হয়েছে।');
             }
             nameInput.value = '';
+            showMessage('অভিনন্দন! আপনি ৫০০ টাকা জিতেছেন!'); // Changed from ৫০০ পয়েন্ট
         });
 
-        // Close modal button listener
         closeModalButton.addEventListener('click', () => {
             modal.classList.add('hidden');
         });
 
-        // --- NEW: Keyboard handling to prevent input from being hidden ---
         nameInput.addEventListener('focus', () => {
-            // Wait for the keyboard to be fully visible before scrolling
             setTimeout(() => {
                 nameInput.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }, 300);
         });
 
-        // Initialize the app when the page has loaded
         document.addEventListener('DOMContentLoaded', () => {
             setInitialCounter();
             startLiveCounter();
-            checkReferrer(); // Check for supporter name in URL on load
+            checkReferrer(); 
+            createFallingCoins();
         });
-
     </script>
 </body>
 </html>
